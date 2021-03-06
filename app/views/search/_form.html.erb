@@ -1,0 +1,15 @@
+<div class= "container-fluid">
+<%= form_for(search) do |f| %>
+  
+  <% if search.errors.any? %>
+    <div id="error_explanation" class="my_alert">
+      <h2><%= pluralize(search.errors.count, "error") %> prohibited this search from being saved:</h2>
+      <ul>
+      <% search.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
+</div>

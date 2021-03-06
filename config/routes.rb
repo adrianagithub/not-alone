@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :services
     resources :videos
     resources :categories
+    get 'search', to: 'search#index' #only: [:index]
   end
 end
   

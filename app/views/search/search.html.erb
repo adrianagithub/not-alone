@@ -1,0 +1,112 @@
+
+<div class="col-md-9">
+  <div class="panel">
+    <div class="panel-heading">
+      <h1 class="panel-title">Services</h1>
+    </div>
+    <div class="panel-body">
+
+      <!-- Code here is used to build the map by google-maps-for-rails-->
+      <div class="col-md-12">
+        <div class="map-responsive">
+          <div style='width: 800px;'>
+            <div id="map" style='width: 800px; height: 400px;'></div>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        handler = Gmaps.build('Google');
+        handler.buildMap({
+          provider: {},
+          internal: {
+            id: 'map'
+          }
+        }, function () {
+          markers = handler.addMarkers(<%=raw @hash.to_json %>);
+
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+        });
+      </script>
+      <br>
+
+    <ul class="col-md-12">
+      <% @services.each do |service| %>
+      <div class="col-sm-6">
+        <div> 
+        <%# class="well well-sm well-agency"> %>
+          <%# <%= image_tag 'icon' %>
+          <%# <p>class="lead agency-name" %>
+          <p>
+            <strong>
+              <%= link_to service.name,
+                controller: "services",
+                action: "show",
+                id: service.id %>
+            </strong>
+          </p>
+
+          <address class="agency-address"><%= service.full_address %><br>
+            <p><%= service.full_address %></p>
+            <!-- <hr> -->
+            <%#<p> <%=(t'show_page.state') %> 
+              <p>state<%= service.state %></p>
+            <%# <p><%=(t'show_page.zip') %> %
+            <p>zipcode<%= service.zipcode %></p>
+          </address>
+
+          <%# <a href="tel:555-555-5555" class="btn btn-default btn-sm btn-link">
+            <span class="agency-phone">
+              <i class="fa fa-phone fa-lg"></i>
+            </span>
+          </a>
+          <a href="#" class="btn btn-default btn-sm btn-link ">
+            <span class="agency-phone">
+              <i class="fa fa-envelope fa-lg"></i>
+            </span>
+          </a>
+          <a href="https://www.google.com/maps/dir/Current+Location/" class="btn btn-default btn-sm btn-link" target="_blank">
+            <span class="agency-phone">
+              <i class="fa fa-map-marker fa-lg"></i>
+            </span>
+          </a> %>
+
+          <%# <a href="#" class="btn btn-default btn-sm btn-link">
+            <span class="agency-facebook">
+              <i class="fa fa-facebook fa-lg"></i>
+            </span>
+          </a>
+          <a href="#" class="btn btn-default btn-sm btn-link">
+            <span class="agency-twitter">
+              <i class="fa fa-twitter fa-lg"></i>
+            </span>
+          </a>
+          <a href="#" class="btn btn-default btn-sm btn-link">
+            <span class="agency-instagram">
+              <i class="fa fa-instagram fa-lg"></i>
+            </span>
+          </a>
+          <a href="#" class="btn btn-default btn-sm btn-link">
+            <span class="agency-youtube">
+              <i class="fa fa-youtube fa-lg"></i>
+            </span>
+          </a> %>
+        </div>
+      </div>
+      <% end %>
+    </ul>
+    <!-- end ul col-md-12 -->
+    <div class="center">
+      <%#= will_paginate %>
+    </div>
+    <%# render 'agency', obj: @agencies %>
+    <div class="center">
+      <%#= will_paginate %>
+    </div>
+  </div>
+  <%#end panel-body%>
+</div>
+<%#end panel%>
+</div>
+<%# end col-md-9%>

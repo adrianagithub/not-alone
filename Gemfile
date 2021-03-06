@@ -38,6 +38,8 @@ gem 'activeadmin'
 gem 'rails-controller-testing'
 gem 'aws-sdk-s3', require: false
 gem 'active_storage_validations'
+gem 'gmaps4rails'
+gem 'geocoder'
 
 
 # Use ActiveStorage variant

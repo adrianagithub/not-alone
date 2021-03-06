@@ -12,13 +12,21 @@ class Customer < ApplicationRecord
     has_many :services, through: :orders 
     has_many :assignments, dependent: :delete_all
     has_many :users, through: :assignments 
-    #accepts_nested_attributes_for :orders    
+    has_many :locations, through: :locations#check
+    geocoded_by :full_address
+    #accepts_nested_attributes_for :orders
+#   reverse_geocoded_by :latitude, :longitude
+#   after_validation :reverse_geocode    
     def full_name
       "#{first_name} #{last_name}"
     end
-    def cust_address
-      "#{street} #{city} #{state} #{zip}"
-    end             
+    # def cust_address
+    #   "#{street} #{city} #{state} #{zip}"
+    # end 
+    def full_address
+      sub_address = [street, city, state].compact.join(', ')
+      [sub_address, zip].compact.join(' ')
+    end            
   end
   
  

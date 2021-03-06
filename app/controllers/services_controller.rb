@@ -90,7 +90,7 @@ class ServicesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def service_params
-      params.require(:service).permit(:name, :description, :kind, :phone_number, :url, :picture)
+      params.require(:service).permit(:name, :description, :kind, :phone_number, :street, :city, :state, :zip, :url, :picture)
     end
 
     def catch_not_found(e)
