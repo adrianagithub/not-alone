@@ -1,3 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="title mt-5 mb-5 display-3" style="text-align: center;"></h1>
+<%= form_tag(search_index_path, :method => "post", id: "search-form", name: "f1", enforce_utf8: false) do %>
+    <div class="input-group">
+      <%= text_field_tag :search, params[:search], placeholder: "Search services", class: "form-control", name: "search" %>
+      <div class="input-group-btn">
+        <button class="btn btn-secondary">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </div>
+    </div>
+  <% end %> 
+  <%# <p>
+
+            <%= text_field_tag(
+                :search,
+                params[:search],
+                placeholder: "Search...",
+                class: "form-control",
+                autofocus: params[:search].present?
+            ) %>
+          <%# </p>  %>
+          <%# <%= submit_tag "Search", name: nil %> 
+
+
 
 <div class="col-md-9">
   <div class="panel">
@@ -47,13 +73,16 @@
             </strong>
           </p>
 
-          <address class="agency-address"><%= service.full_address %><br>
-            <p><%= service.full_address %></p>
+          <address class="agency-address"><%= service.address %><br>
+            <p><%= service.address %></p>
             <!-- <hr> -->
             <%#<p> <%=(t'show_page.state') %> 
               <p>state<%= service.state %></p>
-            <%# <p><%=(t'show_page.zip') %> %
-            <p>zipcode<%= service.zipcode %></p>
+            <%# <p><%=(t'show_page.zip') %>
+            <p>zipcode<%= service.zip %></p>
+            <p>latitude<%= service.latitude %></p>
+            <p>longitude<%= service.longitude %></p>
+
           </address>
 
           <%# <a href="tel:555-555-5555" class="btn btn-default btn-sm btn-link">

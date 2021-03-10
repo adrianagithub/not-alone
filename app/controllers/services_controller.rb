@@ -15,13 +15,24 @@ class ServicesController < ApplicationController
   def index
     #byebug
     @services = Service.all
+    # @hash = Gmaps4rails.build_markers(@services) do |service, marker|
+    # 	marker.lat service.latitude
+    # 	marker.lng service.longitude
+    #   marker.infowindow service.name
+	  #  end
   end
+  
 
   # GET /services/1
   # GET /services/1.json
   def show
     #@picture = Service.find(params[:picture])
     #@picture = Service.find.params[:picture]
+    @hash = Gmaps4rails.build_markers(@service) do |service, marker|
+      marker.lat service.latitude
+      marker.lng service.longitude
+      marker.infowindow "<a href='https://www.google.com/maps/dir/Current+Location/#{service.address}' targe='_blank'>#{service.name}</a>"
+    end
   end
 
   # GET /serivices/new
@@ -56,16 +67,13 @@ class ServicesController < ApplicationController
   # PATCH/PUT /customers/1.json
   def update
     if @service.update(service_params)
-      # byebug
       if params[:service][:picture].present?
-        # byebug
         @service.picture.attach(params[:service][:picture])
         #@service.picture.attach(@picture)
       end
       flash.notice = "The service record was updated successfully."
       redirect_to @service
     else
-      # byebug
       flash.now.alert = @service.errors.full_messages.to_sentence
       render :edit
     end
@@ -90,7 +98,7 @@ class ServicesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def service_params
-      params.require(:service).permit(:name, :description, :kind, :phone_number, :street, :city, :state, :zip, :url, :picture)
+      params.require(:service).permit(:name, :description, :kind, :phone_number, :url, :picture, :street, :city, :state, :zip)
     end
 
     def catch_not_found(e)

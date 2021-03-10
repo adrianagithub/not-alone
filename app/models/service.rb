@@ -10,11 +10,18 @@ class Service < ApplicationRecord
     has_many :orders, dependent: :delete_all
     has_many :customers, through: :orders
     has_many :locations, through: :locations#check
-    geocoded_by :full_address
-   reverse_geocoded_by :latitude, :longitude
-   after_validation :reverse_geocode 
-   def full_address
+    geocoded_by :address
+    after_validation :geocode, if: ->(obj) { obj.address.present? && obj.street_changed? }
+
+  
+
+   def address
     sub_address = [street, city, state].compact.join(', ')
     [sub_address, zip].compact.join(' ')
-  end  
+   end   
+   
+   def address_parsed
+    self.to_json
+   end
+ 
 end

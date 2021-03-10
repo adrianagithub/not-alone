@@ -6,19 +6,24 @@ class SearchController < ApplicationController
       else
         @services = Service.all
       end
+      # @hash = Gmaps4rails.build_markers(@services) do |service, marker|
+      #   marker.lat service.latitude
+      #   marker.lng service.longitude
+      #   marker.infowindow service.name
+      # end
     end
   
-       def search
-           if params[:location].present?
-               @services = Service.near(params[:location])
-           else
-               @services = Service.all
-           end
-          #Code hash send info of all agencies to the view to get converted to JSON
-          @hash = Gmaps4rails.build_markers(@services) do |service, marker|
-          marker.lat service.latitude
-          marker.lng service.longitude
-            marker.infowindow service.name
-          end
+    def search
+      if params[:location].present?
+        @services = Service.near(params[:location])
+      else
+        @services = Service.all
       end
-  end
+      #Code hash send info of all agencies to the view to get converted to JSON
+      @hash = Gmaps4rails.build_markers(@services) do |service, marker|
+        marker.lat service.latitude
+        marker.lng service.longitude
+        marker.infowindow service.name
+      end
+    end
+end

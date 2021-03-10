@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     resources :services
     resources :videos
     resources :categories
-    get 'search', to: 'search#index' #only: [:index]
+    resources :search, only: [:index]
+    post '/s', controller: :search, action: :search, as: :search_services
+    get '/s/:search', controller: :search, action: :index, as: search_results_path
+    # post '/s', controller: :products, action: :search, as: :search_products
+    # get '/s/:search', controller: :products, action: :index, as: search_results_path
   end
 end
   
